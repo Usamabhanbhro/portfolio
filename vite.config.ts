@@ -219,7 +219,22 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+  },// ... existing code above stays exactly the same ...
+
+const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
+
+export default defineConfig({
+  base: '/portfolio/', // <-- ADD THIS EXACT LINE HERE
+  plugins,
+  resolve: {
+    alias: {
+      "@": path.resolve(import.meta.dirname, "client", "src"),
+      "@shared": path.resolve(import.meta.dirname, "shared"),
+      "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+    },
   },
+// ... remaining server/build settings below stay exactly the same ...
+
   server: {
     port: 3000,
     strictPort: false, // Will find next available port if 3000 is busy
